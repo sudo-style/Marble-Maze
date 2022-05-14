@@ -167,6 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa12b7d2512ba4bf39817f3b53635d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cols: 10
+  rows: 10
+  cellWidth: 1
+  cellHeight: 1
 --- !u!1 &251014747
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +344,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa12b7d2512ba4bf39817f3b53635d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cols: 0
+  rows: 10
+  cellWidth: 0
+  cellHeight: 1
 --- !u!1 &636013214
 GameObject:
   m_ObjectHideFlags: 0
