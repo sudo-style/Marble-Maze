@@ -28,14 +28,32 @@ public class Maze : MonoBehaviour{
         //Mark the current cell as visited
         currentCell.visited = true;
 
-        //if the current cell has any neighbors which have not been visited
-        List<Cell> neighbors = currentCell.getNeighbors(this);
-        /*List<Cell> unvisitedNeighbors = new List<Cell>();
-        foreach(Cell cell in neighbors){
-            if(cell.visited == false){
-                unvisitedNeighbors.Add(cell);
+
+        bool currentCellHasUnvisitedNeighbors = true;
+        while(currentCellHasUnvisitedNeighbors){
+            //if the current cell has any neighbors which have not been visited
+            List<Cell> neighbors = currentCell.getNeighbors(this);
+            List<Cell> unvisitedNeighbors = new List<Cell>();
+            foreach(Cell cell in neighbors){
+                if(cell.visited == false){
+                    unvisitedNeighbors.Add(cell);
+                }
             }
-        }*/
+            currentCellHasUnvisitedNeighbors = unvisitedNeighbors.Count != 0;
+
+            //Pick a random neighbor from the list of unvisited neighbors, this will be the next cell
+            if (currentCellHasUnvisitedNeighbors){
+            int randomNeighborIndex = Random.Range(0,unvisitedNeighbors.Count);
+            Cell nextCell = unvisitedNeighbors[randomNeighborIndex];
+                if (unvisitedNeighbors!= null){
+                    nextCell.visited = true;
+                    currentCell = nextCell;
+                }
+            }
+        }
+
+        
+        
         
 
 
@@ -48,6 +66,8 @@ public class Maze : MonoBehaviour{
             cell.makeWall();
         }
     }
+
+    
     public class Cell{
     public int x;
     public int y;
