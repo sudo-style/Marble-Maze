@@ -43,8 +43,9 @@ public class Maze : MonoBehaviour{
 
             //Pick a random neighbor from the list of unvisited neighbors, this will be the next cell
             if (currentCellHasUnvisitedNeighbors){
-            int randomNeighborIndex = Random.Range(0,unvisitedNeighbors.Count);
-            Cell nextCell = unvisitedNeighbors[randomNeighborIndex];
+                int randomNeighborIndex = Random.Range(0,unvisitedNeighbors.Count);
+                Cell nextCell = unvisitedNeighbors[randomNeighborIndex];
+                removeWall(currentCell,nextCell);
                 if (unvisitedNeighbors!= null){
                     nextCell.visited = true;
                     currentCell = nextCell;
@@ -52,18 +53,40 @@ public class Maze : MonoBehaviour{
             }
         }
 
-        
-        
-        
-
-
-
-
-
-
         //Creates all of the walls according to the grid
         foreach(Cell cell in grid){
             cell.makeWall();
+        }
+    }
+
+     public void removeWall(Cell current, Cell next){
+        //current is in the middle
+        //next is either top, right, bottom or left
+        Debug.Log("Next: " + next.x + "," + next.y + "\n");
+        
+        if (current.x == next.x){
+            //either top or bottom
+            if (current.y > next.y){
+                //top
+                current.walls[0] = false;
+                next.walls[2] = false;
+            }else{
+                //bottom
+                current.walls[2] = false;
+                next.walls[0] = false;
+            }
+        }
+        else if (current.y == next.y){
+            //either left or right
+            if (current.x > next.x){
+                //left
+                current.walls[3] = false;
+                next.walls[1] = false;
+            }else{
+                //right
+                current.walls[1] = false;
+                next.walls[3] = false;
+            }
         }
     }
 
@@ -79,7 +102,7 @@ public class Maze : MonoBehaviour{
         this.y = y; 
     }   
     public void makeWall(){
-        if(walls[0]){
+        if(walls[2]){
             //top
             GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             wall.transform.localPosition = new Vector3(x,0.5f,y+0.5f);
@@ -91,7 +114,7 @@ public class Maze : MonoBehaviour{
             wall.transform.localPosition = new Vector3(x+0.5f,0.5f,y);
             wall.transform.localScale = new Vector3(0.1f,1,1); 
         }
-        if(walls[2]){
+        if(walls[0]){
             //bottom
             GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             wall.transform.localPosition = new Vector3(x,0.5f,y-0.5f);
