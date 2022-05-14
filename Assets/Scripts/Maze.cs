@@ -97,28 +97,28 @@ public class Maze : MonoBehaviour{
 
         if (currentPos >= maze.cols){
             //not on top
-            Cell top = maze.grid[currentPos - maze.rows];
+            Cell top = maze.grid[topIndex];
             if (top.visited == false){
                 neighbors.Add(top);
             }
         }
         if (currentPos % maze.cols != maze.cols - 1){
             //not on right
-            Cell right = maze.grid[currentPos + 1];
+            Cell right = maze.grid[rightIndex];
             if (right.visited == false){
                 neighbors.Add(right);
             }
         }
         if (currentPos < maze.rows * maze.cols - maze.cols){
             //not on bottom
-            Cell bottom = maze.grid[currentPos + maze.rows];
+            Cell bottom = maze.grid[bottomIndex];
             if (bottom.visited == false){
                 neighbors.Add(bottom);
             }
         }
         if (currentPos % maze.rows != 0){
             //not on left
-            Cell left = maze.grid[currentPos - 1];
+            Cell left = maze.grid[leftIndex];
             if (left.visited == false){
                 neighbors.Add(left);
             }
