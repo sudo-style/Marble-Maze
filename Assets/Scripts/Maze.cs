@@ -23,17 +23,13 @@ public class Maze : MonoBehaviour{
             }
         }
         
-        //Pick a point on the grid
+        //Make the initial cell the current cell and make it as visited
         currentCell = grid[0];
-        //Mark the current cell as visited
         currentCell.visited = true;
         Stack<Cell> stack = new Stack<Cell>();
 
-        while(unvisitedNeighborsInGrid()){
-            //stop the loop if there are no unvisited neighbors
- 
-            //if the current cell has any neighbors which have not been visited
-            
+        //While there are unvisitedCells in the grid
+        while(unvisitedCellsInGrid()){            
             List<Cell> neighbors = currentCell.getNeighbors(this);
             List<Cell> unvisitedNeighbors = new List<Cell>();
             foreach(Cell cell in neighbors){
@@ -42,16 +38,16 @@ public class Maze : MonoBehaviour{
                 }
             }
 
-            //Pick a random neighbor from the list of unvisited neighbors, this will be the next cell
+            //If the current cell has any neighbors which have not been visited
             if (unvisitedNeighbors.Count != 0){
-                //chose randomly one of the unvisited neighbors
+                //Choose randomly one of the unvisited neighbors
                 int randomNeighborIndex = Random.Range(0,unvisitedNeighbors.Count);
                 Cell nextCell = unvisitedNeighbors[randomNeighborIndex];
                 
                 //Push the current cell to the stack
                 stack.Push(currentCell);
                 
-                //Remove the wall between the current cell and the chosen neighbor
+                //Remove the wall between the current cell and the chosen cell
                 removeWall(currentCell,nextCell);
 
                 //Make the chosen neighbor the current cell, and mark it as visited
@@ -62,8 +58,7 @@ public class Maze : MonoBehaviour{
             }
             //If the stack is not empty
             else if (stack.Count > 0){
-                //Pop a cell from the stack
-                //Make it the current cell
+                //Pop a cell from the stack, and make it the current cell
                 currentCell = stack.Pop();
             }
 
@@ -75,7 +70,7 @@ public class Maze : MonoBehaviour{
         }
     }
 
-    public bool unvisitedNeighborsInGrid(){
+    public bool unvisitedCellsInGrid(){
         foreach(Cell cell in grid){
             if(cell.visited == false){
                 return true;
