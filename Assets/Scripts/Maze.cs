@@ -33,7 +33,7 @@ public class Maze : MonoBehaviour{
             //stop the loop if there are no unvisited neighbors
  
             //if the current cell has any neighbors which have not been visited
-            stack.Push(currentCell);
+            
             List<Cell> neighbors = currentCell.getNeighbors(this);
             List<Cell> unvisitedNeighbors = new List<Cell>();
             foreach(Cell cell in neighbors){
@@ -43,7 +43,7 @@ public class Maze : MonoBehaviour{
             }
 
             //Pick a random neighbor from the list of unvisited neighbors, this will be the next cell
-            if (unvisitedNeighbors.Count>0){
+            if (unvisitedNeighbors.Count != 0){
                 //chose randomly one of the unvisited neighbors
                 int randomNeighborIndex = Random.Range(0,unvisitedNeighbors.Count);
                 Cell nextCell = unvisitedNeighbors[randomNeighborIndex];
