@@ -10,11 +10,14 @@ public class Maze : MonoBehaviour{
     private List<Cell> grid = new List<Cell>();
     public GameObject wall; 
     public Cell currentCell;
+    public GameObject GRID;
 
     
 
 
     public void Start(){
+        this.transform.position = new Vector3(-cols/2,0,-rows/2);
+
         //Sets up the grid
         for(int posX = 0; posX<rows; posX++){
             for(int posY = 0; posY<cols; posY++){
@@ -66,7 +69,7 @@ public class Maze : MonoBehaviour{
 
         //Creates all of the walls according to the grid
         foreach(Cell cell in grid){
-            cell.makeWall();
+            cell.makeWall(this);
         }
     }
 
@@ -122,31 +125,34 @@ public class Maze : MonoBehaviour{
         this.x = x;
         this.y = y; 
     }   
-    public void makeWall(){
+    public void makeWall(Maze maze){
         if(walls[2]){
             //top
             GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             wall.transform.localPosition = new Vector3(x,0.5f,y+0.5f);
             wall.transform.localScale = new Vector3(1,1,0.1f); 
+            wall.transform.SetParent(maze.GRID.transform);
         }
         if(walls[1]){
             //right
             GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             wall.transform.localPosition = new Vector3(x+0.5f,0.5f,y);
             wall.transform.localScale = new Vector3(0.1f,1,1); 
+            wall.transform.SetParent(maze.GRID.transform);
         }
         if(walls[0]){
             //bottom
             GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             wall.transform.localPosition = new Vector3(x,0.5f,y-0.5f);
             wall.transform.localScale = new Vector3(1,1,0.1f);
-
+            wall.transform.SetParent(maze.GRID.transform);
         }
         if(walls[3]){
             //left
             GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             wall.transform.localPosition = new Vector3(x-0.5f,0.5f,y);
             wall.transform.localScale = new Vector3(0.1f,1,1); 
+            wall.transform.SetParent(maze.GRID.transform);
         }
     }
 
